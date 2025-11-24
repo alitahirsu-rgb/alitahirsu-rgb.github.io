@@ -1,6 +1,36 @@
-# React + TypeScript + Vite
+# Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+My portfolio website built with React + TypeScript + Vite, deployed at [alitahir.me](https://alitahir.me).
+
+## Deployment
+
+This site is automatically deployed to GitHub Pages via GitHub Actions.
+
+### How it works
+- **Automatic deployment:** Push to `main` branch triggers the build and deploy workflow
+- **Manual deployment:** Go to Actions tab → "Build and deploy to GitHub Pages" → Run workflow
+- **Build process:** The workflow runs `npm ci && npm run build`, copies `CNAME` to `dist/`, and deploys via GitHub Pages
+- **Custom domain:** The `CNAME` file ensures the custom domain `alitahir.me` is preserved after deployment
+
+### Local development
+
+### Local development
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Tech Stack
 
 Currently, two official plugins are available:
 
