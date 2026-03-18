@@ -1,35 +1,94 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { GameMenu } from './components/GameMenu';
+import { Leaderboard } from './components/Leaderboard';
+import { PongGame, SnakeGame, RockPaperScissors, TicTacToe, NumberGuessing, MemoryMatch, Blackjack, ConnectFour, Game2048, SimonSays, Hangman, WhackAMole, ReactionTime, ColorMatch, Dodge, FlappyBird, Breakout, Minesweeper, SpaceInvaders, CatchTheBall } from './games';
+import { updateGameStats } from './utils/storage';
+import { GAMES } from './games';
+import './App.css';
+
+type AppScreen = 'menu' | 'leaderboard' | string;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [screen, setScreen] = useState<AppScreen>('menu');
+
+  const gameComponents: { [key: string]: React.ComponentType<any> } = {
+    pong: PongGame,
+    snake: SnakeGame,
+    rps: RockPaperScissors,
+    tictactoe: TicTacToe,
+    numberguessing: NumberGuessing,
+    memorymatch: MemoryMatch,
+    blackjack: Blackjack,
+    connectfour: ConnectFour,
+    '2048': Game2048,
+    simonsays: SimonSays,
+    hangman: Hangman,
+    whackamole: WhackAMole,
+    reactiontime: ReactionTime,
+    colormatch: ColorMatch,
+    dodge: Dodge,
+    flappybird: FlappyBird,
+    breakout: Breakout,
+    minesweeper: Minesweeper,
+    spaceinvaders: SpaceInvaders,
+    catchtheball: CatchTheBall,
+  };
+
+  const handleGameSelect = (gameId: string) => {
+    setScreen(gameId);
+  };
+
+  const handleGameEnd = (gameId: string, gameName: string) => (result: 'win' | 'loss' | 'draw', score: number) => {
+    updateGameStats(gameId, gameName, result, score);
+    // Game component will handle navigation back
+  };
+
+  const handleBackToMenu = () => {
+    setScreen('menu');
+  };
+
+  const handleStatsClick = () => {
+    setScreen('leaderboard');
+  };
+
+  const renderContent = () => {
+    if (screen === 'menu') {
+      return (
+        <GameMenu
+          onGameSelect={handleGameSelect}
+          onStatsClick={handleStatsClick}
+        />
+      );
+    }
+
+    if (screen === 'leaderboard') {
+      return <Leaderboard onBack={handleBackToMenu} />;
+    }
+
+    // Find the game
+    const game = GAMES.find(g => g.id === screen);
+    if (!game) {
+      return <GameMenu onGameSelect={handleGameSelect} onStatsClick={handleStatsClick} />;
+    }
+
+    const GameComponent = gameComponents[game.id];
+    if (!GameComponent) {
+      return <GameMenu onGameSelect={handleGameSelect} onStatsClick={handleStatsClick} />;
+    }
+
+    return (
+      <GameComponent
+        onGameEnd={handleGameEnd(game.id, game.name)}
+        onBack={handleBackToMenu}
+      />
+    );
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>MEnMANA</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit by ULLU and save to test WEB
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      {renderContent()}
+    </div>
+  );
 }
 
-export default App
+export default App;

@@ -1,0 +1,229 @@
+/* Leaderboard Styles */
+.leaderboard {
+  width: 100%;
+  max-width: 1200px;
+  animation: slideIn 0.3s ease;
+}
+
+.leaderboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid #00d4ff;
+}
+
+.leaderboard-header h1 {
+  font-size: 40px;
+  background: linear-gradient(135deg, #00d4ff, #ff3399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Overall Stats */
+.overall-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.stat-box {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 51, 153, 0.1));
+  border: 2px solid #00d4ff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.stat-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+}
+
+.stat-box h3 {
+  color: #94a3b8;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 48px;
+  color: #00d4ff;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Game Stats List */
+.game-stats-list {
+  background: rgba(0, 212, 255, 0.05);
+  border: 2px solid #1e293b;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+.game-stats-list h2 {
+  color: #e2e8f0;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Stats Table */
+.stats-table-header {
+  display: grid;
+  grid-template-columns: 50px 1fr 80px 80px 80px 80px 100px;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(0, 212, 255, 0.1);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #00d4ff;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 80px 80px 80px 80px 100px;
+  gap: 15px;
+  padding: 15px;
+  border-bottom: 1px solid #1e293b;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.stats-row:hover {
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.stats-row.not-played {
+  opacity: 0.5;
+}
+
+.stat-col {
+  color: #e2e8f0;
+}
+
+.stat-rank {
+  text-align: center;
+  font-weight: bold;
+  color: #ff3399;
+}
+
+.stat-game {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.game-icon {
+  font-size: 24px;
+}
+
+.stat-number {
+  text-align: center;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+/* Leaderboard Footer */
+.leaderboard-footer {
+  text-align: center;
+  padding: 30px 20px;
+  background: rgba(0, 212, 255, 0.05);
+  border-radius: 12px;
+  border: 2px dashed #00d4ff;
+}
+
+.leaderboard-footer p {
+  color: #94a3b8;
+  font-size: 16px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .leaderboard-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .leaderboard-header h1 {
+    font-size: 32px;
+  }
+
+  .overall-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .stat-value {
+    font-size: 36px;
+  }
+
+  .stats-table-header,
+  .stats-row {
+    grid-template-columns: 35px 1fr 60px 60px 60px 60px 70px;
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .stat-number {
+    font-size: 14px;
+  }
+
+  .game-stats-list {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-table-header {
+    display: none;
+  }
+
+  .stats-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    background: rgba(0, 212, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 15px;
+  }
+
+  .stat-col {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stat-col::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #00d4ff;
+  }
+
+  .stat-rank::before {
+    content: 'Rank: ';
+  }
+
+  .stat-game::before {
+    content: 'Game: ';
+  }
+
+  .stat-number::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #00d4ff;
+  }
+}
